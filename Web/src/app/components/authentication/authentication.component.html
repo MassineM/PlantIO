@@ -1,0 +1,29 @@
+<form action="login">
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Email address"
+      #email
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Password"
+      #password
+      required
+    />
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    (click)="authService.SignIn(email.value, password.value)"
+  >
+    Submit
+  </button>
+</form>

@@ -1,0 +1,19 @@
+<ul>
+  <li *ngFor="let plantation of plants">
+    <h2>{{ plantation.name }} Details</h2>
+    <button type="button" (click)="onSelect(plantation)"></button>
+    <div *ngIf="selectedPlantation == plantation">
+      <div><span>id: </span>{{ selectedPlantation.id }}</div>
+      <div>
+        <label for="name">name: </label>
+        <input
+          id="name"
+          [(ngModel)]="selectedPlantation.name"
+          placeholder="name"
+        />
+      </div>
+      <div><span>type: </span>{{ selectedPlantation.type }}</div>
+      <div><span>createdAt: </span>{{ selectedPlantation.createdAt }}</div>
+    </div>
+  </li>
+</ul>

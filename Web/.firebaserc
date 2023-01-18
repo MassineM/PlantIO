@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "plantio24": {
+      "hosting": {
+        "PlantIO": [
+          "plantiot"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "plantio24"
+  }
+}
