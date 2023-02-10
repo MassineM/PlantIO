@@ -30,6 +30,7 @@ export class AuthGuard
 {
   constructor(public authService: AuthService, public router: Router) {}
   canActivate(
+    // This method is used to check if the user is logged in or not.
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
@@ -37,8 +38,13 @@ export class AuthGuard
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authService.isLoggedIn !== true) {
+    if (!this.authService.isLoggedIn && state.url !== '/connexion') {
       this.router.navigate(['connexion']);
+      return false;
+    }
+    if (this.authService.isLoggedIn && state.url === '/connexion') {
+      this.router.navigateByUrl('/');
+      return false;
     }
     return true;
   }
@@ -53,6 +59,7 @@ export class AuthGuard
     return true;
   }
   canDeactivate(
+    //
     component: unknown,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,

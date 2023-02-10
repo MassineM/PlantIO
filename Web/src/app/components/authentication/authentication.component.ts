@@ -9,12 +9,10 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./authentication.component.css'],
 })
 export class AuthenticationComponent implements OnInit {
+  signUpMode = false;
   constructor(public authService: AuthService) {}
-  ngOnInit() {
-    // // if (this.authService.isLoggedIn) {
-    // //   console.warn('Already logged in');
-    // // }
-    // console.log(JSON.parse(localStorage.getItem('user') || '{}'));
+  ngOnInit() {}
+  ngDoCheck() {
+    const user = this.authService.userData;
   }
-  ngDoCheck() {}
 }

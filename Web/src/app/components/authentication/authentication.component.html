@@ -1,4 +1,4 @@
-<form action="login">
+<form action="login" *ngIf="!signUpMode">
   <div class="form-group">
     <label for="email">Email address</label>
     <input
@@ -27,3 +27,6 @@
     Submit
   </button>
 </form>
+<span *ngIf="!signUpMode" >Not a member yet? <a (click)="signUpMode=true">Sign up</a></span>
+<app-signup *ngIf="signUpMode" />
+<span *ngIf="signUpMode" >Already have an account? <a (click)="signUpMode=false">Sign in</a></span>

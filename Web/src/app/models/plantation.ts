@@ -1,8 +1,12 @@
 // This file is used to define the Plantation model / interface
 
 export interface Plantation {
-  id: number;
+  key?: string;
+  plantRef: string;
   name: string;
-  type: string;
-  createdAt: Date;
+  description: string;
+  recommandHumd: string;
+  recommandLum: string;
+  recommandTemp: string;
+  spots: any[];
 }

@@ -11,16 +11,22 @@ import { FormsModule } from '@angular/forms';
 
 import { PlantationsComponent } from './components/plantations/plantations.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
-import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './shared/services/auth.service';
+import { SignupComponent } from './components/signup/signup.component';
+import { PlantationComponent } from './components/plantation/plantation.component';
+import { SpotComponent } from './components/spot/spot.component';
+import { SpotsComponent } from './components/spots/spots.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlantationsComponent,
     AuthenticationComponent,
-    HomeComponent,
+    SignupComponent,
+    PlantationComponent,
+    SpotComponent,
+    SpotsComponent,
   ],
   imports: [
     BrowserModule,

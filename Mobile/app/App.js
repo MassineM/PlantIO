@@ -1,117 +1,127 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, {useState, useEffect} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import Login from './components/Login/login';
+import SignUp from './components/SignUp/signup';
+import Dashboard from './components/Dashboard/dashboard';
+import Plantation from './components/Plantation/plantation';
+import Spot from './components/Spot/spot';
+import AddPlantationForm from './components/AddPlantationForm/AddPlantationForm';
+//import AddSpotFrom from './components/AddSpotFrom/AddSpotFrom';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import auth from '@react-native-firebase/auth';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createStackNavigator();
+
+// Bottom Navigation Bar
+// const BottomDrawerNav = () => {
+//   const Tab = createMaterialBottomTabNavigator();
+//   return (
+//     <Tab.Navigator activeColor={'#308FDB'} inactiveColor={'#59D0F0'} barStyle={{ backgroundColor: '#fff' }}>
+//       <Tab.Screen
+//         name="Acceuil"
+//         component={Dashboard}
+//         options={{
+//           tabBarIcon: ({ color }) => (
+//             <Image source={images.acceuil} style={{ width: 26, height: 26 }} tintColor={color} />
+//           ),
+//         }}
+//       />
+//       <Tab.Screen
+//         name="Rapports"
+//         component={Reports}
+//         options={{
+//           tabBarIcon: ({ color }) => (
+//             <Image source={images.rapports} style={{ width: 26, height: 26 }} tintColor={color} />
+//           ),
+//         }}
+//       />
+//       <Tab.Screen
+//         name="Notifications"
+//         component={Notifications}
+//         options={{
+//           tabBarIcon: ({ color }) => (
+//             <Image source={images.notifications} style={{ width: 26, height: 26 }} tintColor={color} />
+//           ),
+//         }}
+//       />
+//       <Tab.Screen
+//         name="Paramètres"
+//         component={Settings}
+//         options={{
+//           tabBarIcon: ({ color }) => (
+//             <Image source={images.parametres} style={{ width: 26, height: 26 }} tintColor={color} />
+//           ),
+//         }}
+//       />
+//     </Tab.Navigator>
+//   );
+// };
+
+function RootStack() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <Stack.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: '#3740FE',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{headerLeft: null}}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits MF. GFY
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerLeft: null}}
+      />
+      <Stack.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{headerLeft: null}}
+      />
+      <Stack.Screen
+        name="Plantation"
+        component={Plantation}
+        options={{headerLeft: null}}
+      />
+      <Stack.Screen
+        name="Add New Plantation"
+        component={AddPlantationForm}
+        options={{headerLeft: null}}
+      />
+      <Stack.Screen name="Spot" component={Spot} options={{headerLeft: null}} />
+    </Stack.Navigator>
   );
-};
+}
+export default function App() {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+  if (initializing) return null;
 
-export default App;
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
+}

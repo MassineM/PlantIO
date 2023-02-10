@@ -26,12 +26,9 @@ export class AuthService {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
-        console.log('user', user);
         localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user') || '{}');
       } else {
         localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user') || '{}');
       }
     });
   }
@@ -40,30 +37,55 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        // this.ngZone.run(() => {
-        //   this.router.navigate(['']);
-        // });
-        this.SetUserData(result.user);
-        this.afAuth.authState.subscribe((user) => {
-          if (user) {
-            this.router.navigate(['']);
-          }
+        this.SetUserData(result.user).then(() => {
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          this.router.navigate(['']);
         });
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
+  // Sign up with email/password
+  SignUp(
+    email: string,
+    displayName: string,
+    password: string,
+    password2: string
+  ) {
+    if (password !== password2) {
+      window.alert('Passwords do not match');
+    } else {
+      this.afAuth
+        .createUserWithEmailAndPassword(email, password)
+        .then((result) => {
+          result.user?.updateProfile({
+            displayName: displayName,
+          });
+          this.SignIn(email, password);
+        })
+
+        .catch((error) => {
+          window.alert(error.message);
+        });
+    }
+  }
+
   // Sign out
   async SignOut() {
-    await this.afAuth.signOut();
-    localStorage.removeItem('user');
-    this.router.navigate(['connexion']);
+    return this.afAuth.signOut().then(() => {
+      localStorage.setItem('user', 'null');
+      this.router.navigate(['connexion']);
+    });
   }
   get isLoggedIn(): boolean {
     // Check if user is logged in
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user !== null ? true : false;
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      return user !== null ? true : false;
+    } catch (error) {
+      return false;
+    }
   }
   GoogleAuth() {
     // Auth logic to run auth providers

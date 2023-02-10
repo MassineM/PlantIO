@@ -1,19 +1,96 @@
-<ul>
-  <li *ngFor="let plantation of plants">
-    <h2>{{ plantation.name }} Details</h2>
-    <button type="button" (click)="onSelect(plantation)"></button>
+<button
+  type="button"
+  class="btn btn-primary"
+  (click)="showMode = false"
+  *ngIf="showMode"
+>
+  Add new
+</button>
+<form action="addPlant" *ngIf="!showMode">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" placeholder="Name" #name required />
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Description"
+      #description
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="recommandHumd">Recommanded humidity</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Recommanded humidity"
+      #recommandHumd
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="recommandTemp">Recommanded temperature</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Recommanded temperature"
+      #recommandTemp
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="recommandLum">Recommanded luminosity</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Recommanded luminosity"
+      #recommandLum
+      required
+    />
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    (click)="
+      addPlantation(
+        name.value,
+        description.value,
+        recommandHumd.value,
+        recommandTemp.value,
+        recommandLum.value
+      )
+    "
+  >
+    Submit
+  </button>
+</form>
+<button type="button" (click)="showMode = true" *ngIf="!showMode">Back</button>
+<ul *ngIf="showMode">
+  <li *ngFor="let plantation of listPlantations">
+    <h2>{{ plantation.name }}</h2>
+    <button type="button" (click)="onSelect(plantation)">Show</button>
     <div *ngIf="selectedPlantation == plantation">
-      <div><span>id: </span>{{ selectedPlantation.id }}</div>
+      <div><span>Description: </span>{{ plantation.description }}</div>
       <div>
-        <label for="name">name: </label>
-        <input
-          id="name"
-          [(ngModel)]="selectedPlantation.name"
-          placeholder="name"
-        />
+        <span>Spots count: </span
+        >{{ listSpotSizes[listPlantations.indexOf(plantation)] }}
       </div>
-      <div><span>type: </span>{{ selectedPlantation.type }}</div>
-      <div><span>createdAt: </span>{{ selectedPlantation.createdAt }}</div>
+      <div>
+        <span>Recommanded humidity: </span>{{ plantation.recommandHumd }}
+      </div>
+      <div>
+        <span>Recommanded temperature: </span>{{ plantation.recommandTemp }}
+      </div>
+      <div>
+        <span>Recommanded luminosity: </span>{{ plantation.recommandLum }}
+      </div>
+      <button type="button" (click)="viewPlantation(plantation.key)">
+        View
+      </button>
     </div>
   </li>
 </ul>
+<button (click)="authService.SignOut()">Logout</button>

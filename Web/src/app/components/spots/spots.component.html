@@ -1,0 +1,124 @@
+<button
+  type="button"
+  class="btn btn-primary"
+  (click)="showMode = false"
+  *ngIf="showMode"
+>
+  Add new
+</button>
+<form action="addSpot" *ngIf="!showMode">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" placeholder="Name" #name required />
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Description"
+      #description
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="realtimeHumd">Realtime humidity</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Realtime humidity"
+      #realtimeHumd
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="realtimeTemp">Realtime temperature</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Realtime temperature"
+      #realtimeTemp
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="realtimeLum">Realtime luminosity</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Realtime luminosity"
+      #realtimeLum
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="materialName">Material name</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Material name"
+      #materialName
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="materialRef">Material reference</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Material reference"
+      #materialRef
+      required
+    />
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    (click)="
+      addSpot(
+        name.value,
+        description.value,
+        realtimeHumd.value,
+        realtimeTemp.value,
+        realtimeLum.value,
+        materialName.value,
+        materialRef.value
+      )
+    "
+  >
+    Add Spot
+  </button>
+</form>
+<button
+  type="button"
+  class="btn btn-primary"
+  (click)="showMode = true"
+  *ngIf="!showMode"
+>
+  Cancel
+</button>
+<ul *ngIf="showMode">
+  <li *ngFor="let spot of listSpots">
+    <a [routerLink]="['/spot', plantId, spot.key]"
+      >{{ spot.name }}{{ spot.key }}</a
+    >
+    <div>
+      <span> Description: {{ spot.description }} </span>
+    </div>
+    <div>
+      <span> Realtime humidity: {{ spot.realtimeHumd }} </span>
+    </div>
+    <div>
+      <span> Realtime temperature: {{ spot.realtimeTemp }} </span>
+    </div>
+    <div>
+      <span> Realtime luminosity: {{ spot.realtimeLum }} </span>
+    </div>
+    <div>
+      <span> Material name: {{ spot.materialName }} </span>
+    </div>
+    <div>
+      <span> Material reference: {{ spot.materialRef }} </span>
+    </div>
+  </li>
+</ul>

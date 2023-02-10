@@ -1,0 +1,24 @@
+<h2>{{ spotId }}</h2>
+<div *ngIf="getLoaded">
+  <div>
+    <span>Name: {{ getSpot.name }}</span>
+  </div>
+  <div>
+    <span>Description: {{ getSpot.description }}</span>
+  </div>
+  <div>
+    <span>Realtime humidity: {{ getSpot.realtimeHumd }}</span>
+  </div>
+  <div>
+    <span>Realtime luminosity: {{ getSpot.realtimeLum }}</span>
+  </div>
+  <div>
+    <span>Realtime temperature: {{ getSpot.realtimeTemp }}</span>
+  </div>
+  <div>
+    <span>Material name: {{ getSpot.materialName }}</span>
+  </div>
+  <div>
+    <span>Material reference: {{ getSpot.materialRef }}</span>
+  </div>
+</div>

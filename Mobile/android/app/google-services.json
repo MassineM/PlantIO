@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1063802493233",
+    "firebase_url": "https://plantio24-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "plantio24",
+    "storage_bucket": "plantio24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063802493233:android:78c7dbd16ffd5f04d03810",
+        "android_client_info": {
+          "package_name": "com.plantio_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063802493233-qqhmrio4me33slc48ptq0og5a3ikcq0v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvfz639YnzrxtxOY1AoOY9h4-S-kiWwvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063802493233-qqhmrio4me33slc48ptq0og5a3ikcq0v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
