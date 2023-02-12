@@ -1,0 +1,12 @@
+.signForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 10vh 0;
+}
+.switchPhrase {
+  font-size: 2vh;
+}

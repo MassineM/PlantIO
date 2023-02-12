@@ -1,0 +1,5 @@
+<div class="form-group">
+    <label class="form-label {{changed ? 'active' : ''}}" for="email">{{ label }}</label>
+    <input id="{{label}}" type="{{type}}" class="form-control" (focus)="setActiveLabel()" (blur)="checkActiveLabel()"
+        #{{label}} required />
+</div>

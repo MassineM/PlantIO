@@ -1,0 +1,102 @@
+#include <WiFi.h>
+#include <Firebase.h>
+#include <Firebase_ESP_Client.h>
+
+// Provide the token generation process info.
+#include "addons/TokenHelper.h"
+// Provide the RTDB payload printing info and other helper functions.
+#include "addons/RTDBHelper.h"
+
+#if defined(ESP32)
+#include <WiFi.h>
+#elif defined(ESP8266)
+#include <ESP8266WiFi.h>
+#endif
+
+#define WIFI_SSID "delamotte"
+#define WIFI_PASSWORD "gilou59190"
+#define DATABASE_URL "https://plantio24-default-rtdb.europe-west1.firebasedatabase.app"
+#define API_KEY "AIzaSyCEgObGXsWE22IHwxGRMPCGUsZ0eLCz9cg"
+
+// Define Firebase Data object
+FirebaseData fbdo;
+
+FirebaseAuth auth;
+FirebaseConfig config;
+
+unsigned long sendDataPrevMillis = 0;
+int count = 0;
+bool signupOK = false;
+
+void setup()
+{
+  Serial.begin(9600);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+
+  Serial.println("Connected to WiFi");
+
+  /* Assign the callback function for the long running token generation task */
+  config.token_status_callback = tokenStatusCallback; // see addons/TokenHelper.h
+  /* Assign the api key (required) */
+  config.api_key = API_KEY;
+
+  /* Assign the RTDB URL (required) */
+  config.database_url = DATABASE_URL;
+
+  if (Firebase.signUp(&config, &auth, "", ""))
+  {
+    Serial.println("ok");
+    signupOK = true;
+  }
+  else
+  {
+    Serial.printf("%s\n", config.signer.signupError.message.c_str());
+  }
+
+  Firebase.begin(&config, &auth);
+  Firebase.reconnectWiFi(true);
+}
+
+void loop()
+{
+  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 15000 || sendDataPrevMillis == 0))
+  {
+    sendDataPrevMillis = millis();
+    // Write an Int number on the database path test/int
+    if (Firebase.RTDB.setInt(&fbdo, "test/int", count))
+    {
+      Serial.println("PASSED");
+      Serial.println("PATH");
+      Serial.println(fbdo.dataPath());
+      Serial.println("TYPE");
+      Serial.println(fbdo.dataType());
+    }
+    else
+    {
+      Serial.println("FAILED");
+      Serial.println(fbdo.errorReason());
+    }
+    count++;
+
+    // Write an Float number on the database path test/float
+    if (Firebase.RTDB.setFloat(&fbdo, "test/float", 0.01 + random(0, 100)))
+    {
+      Serial.println("PASSED");
+      Serial.println("PATH");
+      Serial.println(fbdo.dataPath());
+      Serial.println("TYPE");
+      Serial.println(fbdo.dataType());
+    }
+    else
+    {
+      Serial.println("FAILED");
+      Serial.println(fbdo.errorReason());
+    }
+  }
+}

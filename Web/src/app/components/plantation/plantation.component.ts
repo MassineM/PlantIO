@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   AngularFireDatabase,
   AngularFireObject,
@@ -17,20 +17,21 @@ export class PlantationComponent implements OnInit, Plantation {
   plantationRef: AngularFireObject<Plantation>;
   plantation: Observable<any>;
   getPlant: Plantation | null = null;
-  spotsMode = false;
+  showMode = 0;
   plantRef: string = '';
   name: string = '';
   description: string = '';
   spotsCount: number = 0;
-  recommandHumd: string = '';
-  recommandTemp: string = '';
-  recommandLum: string = '';
+  recommendedHumd: string = '';
+  recommendedTemp: string = '';
+  recommendedLum: string = '';
   spots: any[] = [];
   id: string = '';
   getLoaded = false;
 
   constructor(
     private route: ActivatedRoute,
+    public router: Router,
     public authService: AuthService,
     db: AngularFireDatabase
   ) {
@@ -48,12 +49,14 @@ export class PlantationComponent implements OnInit, Plantation {
   title = 'PlantIO';
   ngOnInit(): void {
     this.plantationRef.snapshotChanges().subscribe((plantation) => {
-      console.log(plantation.payload.val());
       this.getPlant = plantation.payload.val();
       this.getPlant?.spots
         ? (this.spotsCount = Object.keys(this.getPlant.spots).length)
         : 0;
       this.getLoaded = true;
     });
+  }
+  getMode(mode: number) {
+    this.showMode = mode;
   }
 }

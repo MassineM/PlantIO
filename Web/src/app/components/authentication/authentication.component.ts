@@ -11,6 +11,7 @@ import { AuthService } from '../../shared/services/auth.service';
 export class AuthenticationComponent implements OnInit {
   signUpMode = false;
   constructor(public authService: AuthService) {}
+  ngAfterViewInit() {}
   ngOnInit() {}
   ngDoCheck() {
     const user = this.authService.userData;

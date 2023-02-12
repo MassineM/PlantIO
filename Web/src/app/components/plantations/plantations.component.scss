@@ -1,0 +1,33 @@
+.addPlantForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .addBtnsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 1vh 0;
+    button {
+      margin: 0 2vw;
+    }
+  }
+}
+.plantItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .plantData {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin: 1vh 0;
+    span {
+      margin: 0 2vw;
+    }
+  }
+}

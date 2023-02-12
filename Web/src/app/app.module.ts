@@ -17,6 +17,13 @@ import { SignupComponent } from './components/signup/signup.component';
 import { PlantationComponent } from './components/plantation/plantation.component';
 import { SpotComponent } from './components/spot/spot.component';
 import { SpotsComponent } from './components/spots/spots.component';
+import { PlantOverviewComponent } from './components/plant-overview/plant-overview.component';
+import { SpotHistoryComponent } from './components/spot-history/spot-history.component';
+import { PinputComponent } from './components/pinput/pinput.component';
+import { PbtnComponent } from './components/pbtn/pbtn.component';
+import { PcardComponent } from './components/pcard/pcard.component';
+import { PmenuComponent } from './components/pmenu/pmenu.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +34,13 @@ import { SpotsComponent } from './components/spots/spots.component';
     PlantationComponent,
     SpotComponent,
     SpotsComponent,
+    PlantOverviewComponent,
+    SpotHistoryComponent,
+    PinputComponent,
+    PbtnComponent,
+    PcardComponent,
+    PmenuComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,

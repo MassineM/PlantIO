@@ -1,35 +1,42 @@
-<h2>{{ id }}</h2>
-<button type="button" (click)="spotsMode = true" *ngIf="!spotsMode">
-  Spots
-</button>
-<button type="button" (click)="spotsMode = false" *ngIf="spotsMode">
-  Details
-</button>
-<div *ngIf="getLoaded && !spotsMode">
-  <div>
-    <span>Ref: {{ getPlant?.plantRef }}</span>
-  </div>
-  <div>
-    <span>Plant: {{ getPlant?.name }}</span>
-  </div>
-  <div>
-    <span>Description: {{ getPlant?.description }}</span>
-  </div>
-  <div>
-    <span>Spots count: {{ spotsCount }}</span>
-  </div>
-  <div>
-    <span>Recommended humidity: {{ getPlant?.recommandHumd }}</span>
-  </div>
-  <div>
-    <span>Recommended luminosity: {{ getPlant?.recommandLum }}</span>
-  </div>
-  <div>
-    <span>Recommended temperature: {{ getPlant?.recommandTemp }}</span>
-  </div>
+<app-pbtn [label]="'Dashboard'" [type]="'default'" (click)="router.navigate(['/']);"></app-pbtn>
+<div class="pageContainer">
+  <h2 *ngIf="getLoaded">{{ getPlant?.name }}</h2>
+  <app-pmenu [label1]="'Overview'" [label2]="'Spots'" [label3]="'Details'" (selectedMode)="getMode($event)" style="
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;"></app-pmenu>
+  <ng-template #customWrapperTemplate>
+    <div *ngIf="getLoaded && showMode==0">
+      <app-plant-overview></app-plant-overview>
+    </div>
+    <div *ngIf="getLoaded && showMode==2">
+      <div>
+        <span>Ref: {{ getPlant?.plantRef }}</span>
+      </div>
+      <div>
+        <span>Plant: {{ getPlant?.name }}</span>
+      </div>
+      <div>
+        <span>Description: {{ getPlant?.description }}</span>
+      </div>
+      <div>
+        <span>Spots count: {{ spotsCount }}</span>
+      </div>
+      <div>
+        <span>Recommended humidity: {{ getPlant?.recommendedHumd }}</span>
+      </div>
+      <div>
+        <span>Recommended luminosity: {{ getPlant?.recommendedLum }}</span>
+      </div>
+      <div>
+        <span>Recommended temperature: {{ getPlant?.recommendedTemp }}</span>
+      </div>
 
-  <button (click)="authService.SignOut()">Logout</button>
-</div>
-<div *ngIf="spotsMode">
-  <app-spots [plantId]="id"></app-spots>
+    </div>
+    <div *ngIf="getLoaded && showMode==1">
+      <app-spots [plantId]="id"></app-spots>
+    </div>
+  </ng-template>
+  <app-pcard [pCardTemplate]="customWrapperTemplate"></app-pcard>
 </div>

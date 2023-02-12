@@ -2,9 +2,9 @@ export interface Spot {
   key?: string;
   name: string;
   description: string;
-  realtimeHumd: string;
-  realtimeTemp: string;
-  realtimeLum: string;
+  realtimeHumd: Number;
+  realtimeTemp: Number;
+  realtimeLum: Number;
   materialName: string;
   materialRef: string;
 }

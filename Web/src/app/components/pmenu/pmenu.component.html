@@ -1,0 +1,11 @@
+<div class="menu">
+    <button type="submit" class="btn left-btn" (click)="setMode(0)" [disabled]="selectMode==0">
+        {{label1}}
+    </button>
+    <button type="submit" class="btn mid-btn" (click)="setMode(1)" [disabled]="selectMode==1">
+        {{label2}}
+    </button>
+    <button type="submit" class="btn right-btn" (click)="setMode(2)" [disabled]="selectMode==2">
+        {{label3}}
+    </button>
+</div>

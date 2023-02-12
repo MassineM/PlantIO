@@ -1,0 +1,24 @@
+.form-group {
+  width: 100%;
+  margin-bottom: 2.5vh;
+  position: relative;
+}
+.form-group .form-label {
+  font-family: "Roboto", sans-serif;
+  position: absolute;
+  top: 1.2em;
+  left: 0.5em;
+  transition: all 0.2s;
+  pointer-events: none;
+}
+.form-group .active {
+  top: -0.7vw;
+  font-size: 1.5vh;
+  color: gray;
+}
+.form-group .form-control {
+  margin-top: 1vh;
+  padding: 1vh 0.3vw;
+  width: 100%;
+  border-radius: 1vh;
+}/*# sourceMappingURL=pinput.component.css.map */

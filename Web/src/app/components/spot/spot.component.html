@@ -1,24 +1,45 @@
-<h2>{{ spotId }}</h2>
-<div *ngIf="getLoaded">
-  <div>
-    <span>Name: {{ getSpot.name }}</span>
-  </div>
-  <div>
-    <span>Description: {{ getSpot.description }}</span>
-  </div>
-  <div>
-    <span>Realtime humidity: {{ getSpot.realtimeHumd }}</span>
-  </div>
-  <div>
-    <span>Realtime luminosity: {{ getSpot.realtimeLum }}</span>
-  </div>
-  <div>
-    <span>Realtime temperature: {{ getSpot.realtimeTemp }}</span>
-  </div>
-  <div>
-    <span>Material name: {{ getSpot.materialName }}</span>
-  </div>
-  <div>
-    <span>Material reference: {{ getSpot.materialRef }}</span>
-  </div>
+<app-pbtn (click)="router.navigate(['plantation/', plantId])" [label]="'Plantation'" [type]="'default'"></app-pbtn>
+<div class="pageContainer">
+  <h2 *ngIf="getLoaded">{{ getSpot.name}}</h2>
+  <app-pmenu [label1]="'Overview'" [label2]="'History'" [label3]="'Details'" (selectedMode)="getMode($event)" style="
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;"></app-pmenu>
+  <ng-template #customWrapperTemplate>
+    <app-spot-history *ngIf="showMode==1"></app-spot-history>
+    <div *ngIf="getLoaded">
+      <div *ngIf="showMode==2">
+        <div>
+          <span>Name: {{ getSpot.name }}</span>
+        </div>
+        <div>
+          <span>Description: {{ getSpot.description }}</span>
+        </div>
+        <div>
+          <span>Material name: {{ getSpot.materialName }}</span>
+        </div>
+        <div>
+          <span>Material reference: {{ getSpot.materialRef }}</span>
+        </div>
+      </div>
+      <div *ngIf="showMode==0">
+        <div>
+          <div>
+            <span>Realtime humidity: {{ getSpot.realtimeHumd }}</span>
+          </div>
+          <div>
+            <span>Realtime luminosity: {{ getSpot.realtimeLum }}</span>
+          </div>
+          <div>
+            <span>Realtime temperature: {{ getSpot.realtimeTemp }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <app-pcard [pCardTemplate]="customWrapperTemplate"></app-pcard>
+  <!-- <div *ngIf="spotsMode">
+  <app-spots [plantId]="id"></app-spots>
+</div> -->
 </div>

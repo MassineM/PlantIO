@@ -1,0 +1,7 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+}/*# sourceMappingURL=spot.component.css.map */

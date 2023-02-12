@@ -4,6 +4,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Plantation } from '../../models/plantation';
+import { Spot } from '../../models/spot';
 import {
   AngularFireDatabase,
   AngularFireList,
@@ -18,19 +19,22 @@ import { map, Observable } from 'rxjs';
 export class PlantationsComponent implements OnInit {
   plantationsRef: AngularFireList<Plantation>;
   plantations: Observable<any[]>;
-  selectedPlantation?: Plantation;
+  spots: Observable<any[]> | null = null;
+  spotsRef: AngularFireList<Spot> | null = null;
   showMode = true;
   listPlantations: any[] = [];
+  listPlantationsRef: any[] = [];
   listSpotSizes: Number[] = [];
-  onSelect(plantation: Plantation): void {
-    this.selectedPlantation = plantation;
-  }
+  listTemps: Number[] = [];
+  listHumds: Number[] = [];
+  listLums: Number[] = [];
+  getLoadedSpots = false;
+
   constructor(
     private router: Router,
     public authService: AuthService,
     db: AngularFireDatabase
   ) {
-    // this.plantations = db.list<Plantation>('plantations').valueChanges();
     this.plantationsRef = db.list(
       `plantations/${JSON.parse(localStorage.getItem('user') || '{}').uid}`
     );
@@ -50,13 +54,50 @@ export class PlantationsComponent implements OnInit {
         )
       )
       .subscribe((plantations) => {
-        console.log(plantations);
-        // this.listPlantations = plantations;
         for (let plantation of plantations) {
-          this.listPlantations.push(plantation);
-          plantation.spots
-            ? this.listSpotSizes.push(Object.keys(plantation.spots).length)
-            : this.listSpotSizes.push(0);
+          if (this.listPlantationsRef.includes(plantation.key)) {
+            console.log('already exists');
+            this.listPlantations[
+              this.listPlantationsRef.indexOf(plantation.key)
+            ] = JSON.parse(JSON.stringify(plantation));
+          } else {
+            this.listPlantationsRef.push(plantation.key);
+            this.listPlantations.push(plantation);
+          }
+          let sumHumd = 0;
+          let sumTemp = 0;
+          let sumLum = 0;
+          let cnt = 0;
+          let tempListObj = JSON.parse(JSON.stringify(plantation.spots));
+          for (let spot of Object.keys(tempListObj)) {
+            tempListObj[spot].realtimeHumd
+              ? (sumHumd += tempListObj[spot].realtimeHumd.valueOf())
+              : (sumHumd = sumHumd);
+            tempListObj[spot].realtimeTemp
+              ? (sumTemp += tempListObj[spot].realtimeTemp.valueOf())
+              : (sumTemp = sumTemp);
+            tempListObj[spot].realtimeLum
+              ? (sumLum += tempListObj[spot].realtimeLum.valueOf())
+              : (sumLum = sumLum);
+            cnt++;
+            if (this.listPlantationsRef.includes(plantation.key)) {
+              this.listHumds[this.listPlantationsRef.indexOf(plantation.key)] =
+                sumHumd / cnt;
+              this.listTemps[this.listPlantationsRef.indexOf(plantation.key)] =
+                sumTemp / cnt;
+              this.listLums[this.listPlantationsRef.indexOf(plantation.key)] =
+                sumLum / cnt;
+              this.listSpotSizes[
+                this.listPlantationsRef.indexOf(plantation.key)
+              ] = cnt;
+            } else {
+              this.listHumds.push(sumHumd / cnt);
+              this.listTemps.push(sumTemp / cnt);
+              this.listLums.push(sumLum / cnt);
+              this.listSpotSizes.push(cnt);
+            }
+            console.log(this.listHumds, 'listHumds');
+          }
         }
       });
   }
@@ -66,17 +107,17 @@ export class PlantationsComponent implements OnInit {
   addPlantation(
     name: string,
     description: string,
-    recommandHumd: string,
-    recommandTemp: string,
-    recommandLum: string
+    recommendedHumd: string,
+    recommendedTemp: string,
+    recommendedLum: string
   ) {
     const newPlantation: Plantation = {
       plantRef: this.generateId(),
       name,
       description,
-      recommandHumd,
-      recommandTemp,
-      recommandLum,
+      recommendedHumd,
+      recommendedTemp,
+      recommendedLum,
       spots: [],
     };
     this.plantationsRef
@@ -90,6 +131,5 @@ export class PlantationsComponent implements OnInit {
   }
   viewPlantation(plantationID: any) {
     this.router.navigate(['/plantation', plantationID]);
-    // console.log(plantationID);
   }
 }

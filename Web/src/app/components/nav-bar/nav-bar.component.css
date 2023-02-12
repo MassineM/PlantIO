@@ -1,0 +1,28 @@
+.navContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.navContainer.connected {
+  background-color: #e6eeda;
+  border-bottom: 1px solid rgba(64, 62, 53, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: fixed;
+  z-index: 1030;
+  padding: 0 5vw;
+  height: 8.5vh;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 20vw;
+  margin: 2vh 0 5vh 0;
+}
+
+.navLogo {
+  height: 7vh;
+}/*# sourceMappingURL=nav-bar.component.css.map */

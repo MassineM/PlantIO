@@ -1,0 +1,8 @@
+<div *ngIf="connected" class="navContainer connected">
+    <img class="navLogo" src="assets/NavLogo.svg">
+    <app-pbtn (click)="authService.SignOut()" [label]="'Logout'" [type]="'danger'"></app-pbtn>
+</div>
+<div *ngIf="connected" style="height: 10vh;"></div>
+<div *ngIf="!connected" class="navContainer">
+    <img class="logo" src="assets/Logo.svg">
+</div>

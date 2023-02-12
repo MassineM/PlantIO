@@ -1,0 +1,41 @@
+.btn {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 6px 12px;
+  text-align: center;
+  vertical-align: middle;
+  width: 15vw;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #333;
+  }
+  &:disabled {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    color: #333;
+    font-weight: 400;
+    cursor: default;
+  }
+}
+.mid-btn {
+  border-radius: 0;
+}
+.right-btn {
+  border-radius: 0 1vh 1vh 0;
+}
+.left-btn {
+  border-radius: 1vh 0 0 1vh;
+}
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 2vh;
+}

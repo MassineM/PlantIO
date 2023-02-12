@@ -1,96 +1,48 @@
-<button
-  type="button"
-  class="btn btn-primary"
-  (click)="showMode = false"
-  *ngIf="showMode"
->
-  Add new
-</button>
-<form action="addPlant" *ngIf="!showMode">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" placeholder="Name" #name required />
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Description"
-      #description
-      required
-    />
-  </div>
-  <div class="form-group">
-    <label for="recommandHumd">Recommanded humidity</label>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Recommanded humidity"
-      #recommandHumd
-      required
-    />
-  </div>
-  <div class="form-group">
-    <label for="recommandTemp">Recommanded temperature</label>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Recommanded temperature"
-      #recommandTemp
-      required
-    />
-  </div>
-  <div class="form-group">
-    <label for="recommandLum">Recommanded luminosity</label>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Recommanded luminosity"
-      #recommandLum
-      required
-    />
-  </div>
-  <button
-    type="submit"
-    class="btn btn-primary"
-    (click)="
-      addPlantation(
-        name.value,
-        description.value,
-        recommandHumd.value,
-        recommandTemp.value,
-        recommandLum.value
-      )
-    "
-  >
-    Submit
-  </button>
-</form>
-<button type="button" (click)="showMode = true" *ngIf="!showMode">Back</button>
+<app-pbtn (click)="showMode = false" [label]="'Add new'" [type]="'primary'" *ngIf="showMode"></app-pbtn>
+<div *ngIf="!showMode">
+  <ng-template #customWrapperTemplate>
+    <h2>Add new plantation</h2>
+    <form action="addPlant" class="addPlantForm">
+      <app-pinput [label]="'Name'" [type]="'text'" [required]="true" #name></app-pinput>
+      <app-pinput [label]="'Description'" [type]="'text'" [required]="true" #description></app-pinput>
+      <app-pinput [label]="'Rec. humidity'" [type]="'text'" [required]="true" #recommendedHumd></app-pinput>
+      <app-pinput [label]="'Rec. temperature'" [type]="'text'" [required]="true" #recommendedTemp></app-pinput>
+      <app-pinput [label]="'Rec. luminosity'" [type]="'text'" [required]="true" #recommendedLum></app-pinput>
+      <div class="addBtnsContainer">
+        <app-pbtn (click)="showMode = true" [label]="'Back'" [type]="'danger'" *ngIf="!showMode"></app-pbtn>
+        <app-pbtn (click)="addPlantation(
+    name.pInput.value,
+    description.pInput.value,
+    recommendedHumd.pInput.value,
+    recommendedTemp.pInput.value,
+    recommendedLum.pInput.value
+  )" [label]="'Submit'" [type]="'primary'"></app-pbtn>
+      </div>
+
+    </form>
+  </ng-template>
+  <app-pcard [pCardTemplate]="customWrapperTemplate"></app-pcard>
+</div>
+
 <ul *ngIf="showMode">
+
   <li *ngFor="let plantation of listPlantations">
-    <h2>{{ plantation.name }}</h2>
-    <button type="button" (click)="onSelect(plantation)">Show</button>
-    <div *ngIf="selectedPlantation == plantation">
-      <div><span>Description: </span>{{ plantation.description }}</div>
-      <div>
-        <span>Spots count: </span
-        >{{ listSpotSizes[listPlantations.indexOf(plantation)] }}
+    <ng-template #customWrapperTemplate>
+      <h2>{{ plantation.name }}</h2>
+      <div class="plantItem">
+        <div><span>Description: </span>{{ plantation.description }}</div>
+        <div>
+          <span>Spots count: </span>{{ listSpotSizes[listPlantations.indexOf(plantation)] || 0 }}
+        </div>
+        <div class="plantData">
+          <span>Humidity: {{ listHumds[listPlantations.indexOf(plantation)] || 0 }}</span>
+          <span>Temperature: {{ listTemps[listPlantations.indexOf(plantation)] || 0 }}</span>
+          <span>Luminosity: {{ listLums[listPlantations.indexOf(plantation)] || 0 }}</span>
+        </div>
+        <app-pbtn (click)="viewPlantation(plantation.key)" [label]="'View'" [type]="'default'"></app-pbtn>
+
       </div>
-      <div>
-        <span>Recommanded humidity: </span>{{ plantation.recommandHumd }}
-      </div>
-      <div>
-        <span>Recommanded temperature: </span>{{ plantation.recommandTemp }}
-      </div>
-      <div>
-        <span>Recommanded luminosity: </span>{{ plantation.recommandLum }}
-      </div>
-      <button type="button" (click)="viewPlantation(plantation.key)">
-        View
-      </button>
-    </div>
+    </ng-template>
+    <app-pcard [pCardTemplate]="customWrapperTemplate"></app-pcard>
   </li>
 </ul>
-<button (click)="authService.SignOut()">Logout</button>

@@ -32,11 +32,6 @@ export class SpotsComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap) => {
       this.plantId = paramMap.get('id') || '';
     });
-    console.log(
-      `plantations/${JSON.parse(localStorage.getItem('user') || '{}').uid}/${
-        this.plantId
-      }/spots`
-    );
     this.spotsRef = db.list(
       `plantations/${JSON.parse(localStorage.getItem('user') || '{}').uid}/${
         this.plantId
@@ -58,9 +53,8 @@ export class SpotsComponent implements OnInit {
         )
       )
       .subscribe((spots) => {
-        console.log(spots);
         for (let spot of spots) {
-          this.listSpots.push(spot);
+          if (!this.listSpots.includes(spot)) this.listSpots.push(spot);
         }
       });
   }
@@ -73,25 +67,22 @@ export class SpotsComponent implements OnInit {
   addSpot(
     name: string,
     description: string,
-    realtimeHumd: string,
-    realtimeTemp: string,
-    realtimeLum: string,
     materialName: string,
     materialRef: string
   ) {
     const newSpot: Spot = {
       name: name,
       description: description,
-      realtimeHumd: realtimeHumd,
-      realtimeTemp: realtimeTemp,
-      realtimeLum: realtimeLum,
+      realtimeHumd: 0,
+      realtimeTemp: 0,
+      realtimeLum: 0,
       materialName: materialName,
       materialRef: materialRef,
     };
 
     this.spotsRef.push(newSpot).then((res) => {
-      console.log(res);
       this.showMode = true;
+      this.router.navigate([`/spot/${this.plantId}/${res.key}`]);
     });
   }
   viewSpot(spot: Spot) {

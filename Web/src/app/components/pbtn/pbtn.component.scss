@@ -1,0 +1,28 @@
+.btn {
+  width: auto;
+  height: auto;
+  padding: 1vh 1vw;
+  margin: 2vh 0;
+  transition: all 0.5s;
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  border-color: #353535;
+  color: #212121;
+
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+    filter: contrast(1.2);
+  }
+  &.primary {
+    background-color: #95d2b5;
+  }
+  &.default {
+    background-color: #ececec;
+  }
+  &.danger {
+    background-color: #f5a9a9;
+  }
+}

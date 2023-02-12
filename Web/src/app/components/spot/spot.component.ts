@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   AngularFireDatabase,
   AngularFireObject,
@@ -19,17 +19,19 @@ export class SpotComponent implements OnInit, Spot {
   getSpot: any;
   name: string = '';
   description: string = '';
-  realtimeHumd: string = '';
-  realtimeTemp: string = '';
-  realtimeLum: string = '';
+  realtimeHumd: Number = 0;
+  realtimeTemp: Number = 0;
+  realtimeLum: Number = 0;
   materialName: string = '';
   materialRef: string = '';
   spotId: string = '';
   plantId: string = '';
   getLoaded = false;
+  showMode = 0;
 
   constructor(
     private route: ActivatedRoute,
+    public router: Router,
     public authService: AuthService,
     db: AngularFireDatabase
   ) {
@@ -52,9 +54,11 @@ export class SpotComponent implements OnInit, Spot {
   title = 'PlantIO';
   ngOnInit(): void {
     this.spotRef.snapshotChanges().subscribe((spot) => {
-      console.log(spot.payload.val());
       this.getSpot = spot.payload.val();
       this.getLoaded = true;
     });
+  }
+  getMode(mode: number) {
+    this.showMode = mode;
   }
 }
