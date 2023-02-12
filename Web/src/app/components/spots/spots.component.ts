@@ -19,6 +19,7 @@ export class SpotsComponent implements OnInit {
   getPlant: any;
   showMode = true;
   listSpots: any[] = [];
+  listSpotsRef: any[] = [];
   @Input() plantId: string = '';
   selectedSpot?: Spot;
 
@@ -54,7 +55,13 @@ export class SpotsComponent implements OnInit {
       )
       .subscribe((spots) => {
         for (let spot of spots) {
-          if (!this.listSpots.includes(spot)) this.listSpots.push(spot);
+          if (this.listSpotsRef.includes(spot.key)) {
+            this.listSpots[this.listSpotsRef.indexOf(spot.key)] = JSON.parse(
+              JSON.stringify(spot)
+            );
+          } else {
+            this.listSpots.push(spot);
+          }
         }
       });
   }
@@ -82,7 +89,7 @@ export class SpotsComponent implements OnInit {
 
     this.spotsRef.push(newSpot).then((res) => {
       this.showMode = true;
-      this.router.navigate([`/spot/${this.plantId}/${res.key}`]);
+      // this.router.navigate([`/spot/${this.plantId}/${res.key}`]);
     });
   }
   viewSpot(spot: Spot) {

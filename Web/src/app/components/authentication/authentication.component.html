@@ -1,6 +1,6 @@
 <ng-template #customWrapperTemplate>
   <form class="signForm" action="login" *ngIf="!signUpMode">
-    <h1>Sign Up</h1>
+    <h1>Sign In</h1>
     <app-pinput [label]="'Email'" [type]="'text'" [required]="true" #email></app-pinput>
     <app-pinput [label]="'Password'" [type]="'password'" [required]="true" #password></app-pinput>
     <app-pbtn (click)="authService.SignIn(email.pInput.value, password.pInput.value)" [label]="'Sign in'"

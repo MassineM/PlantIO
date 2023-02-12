@@ -11,28 +11,12 @@ align-items: center;"></app-pmenu>
       <app-plant-overview></app-plant-overview>
     </div>
     <div *ngIf="getLoaded && showMode==2">
-      <div>
-        <span>Ref: {{ getPlant?.plantRef }}</span>
-      </div>
-      <div>
-        <span>Plant: {{ getPlant?.name }}</span>
-      </div>
-      <div>
-        <span>Description: {{ getPlant?.description }}</span>
-      </div>
-      <div>
-        <span>Spots count: {{ spotsCount }}</span>
-      </div>
-      <div>
-        <span>Recommended humidity: {{ getPlant?.recommendedHumd }}</span>
-      </div>
-      <div>
-        <span>Recommended luminosity: {{ getPlant?.recommendedLum }}</span>
-      </div>
-      <div>
-        <span>Recommended temperature: {{ getPlant?.recommendedTemp }}</span>
-      </div>
-
+      <app-pinfo [label]="'Plantation name'" [data]="getPlant?.name"></app-pinfo>
+      <app-pinfo [label]="'Plantation description'" [data]="getPlant?.description"></app-pinfo>
+      <app-pinfo [label]="'Spots count'" [data]="spotsCount"></app-pinfo>
+      <app-pinfo [label]="'Recommended humidity'" [data]="getPlant?.recommendedHumd"></app-pinfo>
+      <app-pinfo [label]="'Recommended luminosity'" [data]="getPlant?.recommendedLum"></app-pinfo>
+      <app-pinfo [label]="'Recommended temperature'" [data]="getPlant?.recommendedTemp"></app-pinfo>
     </div>
     <div *ngIf="getLoaded && showMode==1">
       <app-spots [plantId]="id"></app-spots>

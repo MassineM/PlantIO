@@ -8,7 +8,7 @@
   right: 0;
 }
 .navContainer.connected {
-  background-color: #e6eeda;
+  background-color: #d9f0cd;
   border-bottom: 1px solid rgba(64, 62, 53, 0.2);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: fixed;

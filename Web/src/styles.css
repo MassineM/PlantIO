@@ -10,10 +10,13 @@ body {
 h1 {
   font-size: 4vh;
   margin: 0 0 5vh 0;
+  color: rgb(37, 25, 19);
+  font-weight: 800;
 }
 h2 {
-  font-size: 3vh;
+  font-size: 3.5vh;
   margin: 2vh 0;
+  font-weight: 700;
 }
 ul {
   list-style-type: none;

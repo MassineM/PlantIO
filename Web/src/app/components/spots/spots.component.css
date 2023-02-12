@@ -1,0 +1,9 @@
+a {
+  color: rgb(80, 77, 35);
+  text-decoration: none;
+  font-weight: 600;
+}
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

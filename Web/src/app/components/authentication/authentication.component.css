@@ -10,4 +10,14 @@
 
 .switchPhrase {
   font-size: 2vh;
+  color: rgb(43, 36, 30);
+}
+.switchPhrase a {
+  color: rgb(80, 77, 35);
+  text-decoration: none;
+  font-weight: 600;
+}
+.switchPhrase a:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }/*# sourceMappingURL=authentication.component.css.map */

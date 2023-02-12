@@ -30,14 +30,27 @@
     <ng-template #customWrapperTemplate>
       <h2>{{ plantation.name }}</h2>
       <div class="plantItem">
-        <div><span>Description: </span>{{ plantation.description }}</div>
-        <div>
-          <span>Spots count: </span>{{ listSpotSizes[listPlantations.indexOf(plantation)] || 0 }}
-        </div>
+        <app-pinfo [label]="'Plantation description'" [data]="plantation.description"></app-pinfo>
+        <app-pinfo [label]="'Spots count'" [data]="listSpotSizes[listPlantations.indexOf(plantation)] || 0"></app-pinfo>
         <div class="plantData">
-          <span>Humidity: {{ listHumds[listPlantations.indexOf(plantation)] || 0 }}</span>
-          <span>Temperature: {{ listTemps[listPlantations.indexOf(plantation)] || 0 }}</span>
-          <span>Luminosity: {{ listLums[listPlantations.indexOf(plantation)] || 0 }}</span>
+          <span class="dataElement">Humidity :
+            <div class="dataValue">
+
+              {{ listHumds[listPlantations.indexOf(plantation)].toFixed(2) || 0 }}
+            </div>
+          </span>
+          <span class="dataElement">Temperature :
+            <div class="dataValue">
+
+              {{ listTemps[listPlantations.indexOf(plantation)].toFixed(2) || 0 }}
+            </div>
+          </span>
+          <span class="dataElement">Luminosity :
+            <div class="dataValue">
+
+              {{ listLums[listPlantations.indexOf(plantation)].toFixed(2) || 0 }}
+            </div>
+          </span>
         </div>
         <app-pbtn (click)="viewPlantation(plantation.key)" [label]="'View'" [type]="'default'"></app-pbtn>
 

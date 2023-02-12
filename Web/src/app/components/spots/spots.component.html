@@ -17,25 +17,13 @@
 <div *ngIf="showMode">
   <ul>
     <li *ngFor="let spot of listSpots">
-      <a [routerLink]="['/spot', plantId, spot.key]">{{ spot.name }}{{ spot.key }}</a>
-      <div>
-        <span> Description: {{ spot.description }} </span>
-      </div>
-      <div>
-        <span> Realtime humidity: {{ spot.realtimeHumd }} </span>
-      </div>
-      <div>
-        <span> Realtime temperature: {{ spot.realtimeTemp }} </span>
-      </div>
-      <div>
-        <span> Realtime luminosity: {{ spot.realtimeLum }} </span>
-      </div>
-      <div>
-        <span> Material name: {{ spot.materialName }} </span>
-      </div>
-      <div>
-        <span> Material reference: {{ spot.materialRef }} </span>
-      </div>
+      <a [routerLink]="['/spot', plantId, spot.key]">{{ spot.name }}</a>
+      <app-pinfo [label]="'Description'" [data]="spot.description"></app-pinfo>
+      <app-pinfo [label]="'Realtime humidity'" [data]="spot.realtimeHumd"></app-pinfo>
+      <app-pinfo [label]="'Realtime temperature'" [data]="spot.realtimeTemp"></app-pinfo>
+      <app-pinfo [label]="'Realtime luminosity'" [data]="spot.realtimeLum"></app-pinfo>
+      <app-pinfo [label]="'Material name'" [data]="spot.materialName"></app-pinfo>
+      <app-pinfo [label]="'Material reference'" [data]="spot.materialRef"></app-pinfo>
     </li>
   </ul>
 </div>

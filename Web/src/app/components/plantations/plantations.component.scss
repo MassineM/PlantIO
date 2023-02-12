@@ -24,10 +24,22 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    width: 100%;
+    width: fit-content;
     margin: 1vh 0;
-    span {
+    .dataElement {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: fit-content;
       margin: 0 2vw;
+      font-weight: 600;
+      color: #2c2c2c;
+      width: fit-content;
+      .dataValue {
+        font-weight: 500;
+        color: #000;
+      }
     }
   }
 }

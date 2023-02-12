@@ -10,30 +10,16 @@
     <app-spot-history *ngIf="showMode==1"></app-spot-history>
     <div *ngIf="getLoaded">
       <div *ngIf="showMode==2">
-        <div>
-          <span>Name: {{ getSpot.name }}</span>
-        </div>
-        <div>
-          <span>Description: {{ getSpot.description }}</span>
-        </div>
-        <div>
-          <span>Material name: {{ getSpot.materialName }}</span>
-        </div>
-        <div>
-          <span>Material reference: {{ getSpot.materialRef }}</span>
-        </div>
+        <app-pinfo [label]="'Spot name'" [data]="getSpot.name"></app-pinfo>
+        <app-pinfo [label]="'Spot description'" [data]="getSpot.description"></app-pinfo>
+        <app-pinfo [label]="'Material name'" [data]="getSpot.materialName"></app-pinfo>
+        <app-pinfo [label]="'Material reference'" [data]="getSpot.materialRef"></app-pinfo>
       </div>
       <div *ngIf="showMode==0">
         <div>
-          <div>
-            <span>Realtime humidity: {{ getSpot.realtimeHumd }}</span>
-          </div>
-          <div>
-            <span>Realtime luminosity: {{ getSpot.realtimeLum }}</span>
-          </div>
-          <div>
-            <span>Realtime temperature: {{ getSpot.realtimeTemp }}</span>
-          </div>
+          <app-pinfo [label]="'Recommended humidity'" [data]="getSpot.realtimeHumd"></app-pinfo>
+          <app-pinfo [label]="'Recommended luminosity'" [data]="getSpot.realtimeLum"></app-pinfo>
+          <app-pinfo [label]="'Recommended temperature'" [data]="getSpot.realtimeTemp"></app-pinfo>
         </div>
       </div>
     </div>

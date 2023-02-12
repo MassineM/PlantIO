@@ -1,0 +1,15 @@
+.infoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.infoContainer .infoLabel {
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 0 2vw 0 0;
+}
+.infoContainer .infoData {
+  font-weight: 500;
+  color: #000;
+}/*# sourceMappingURL=pinfo.component.css.map */

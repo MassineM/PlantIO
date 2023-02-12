@@ -56,7 +56,6 @@ export class PlantationsComponent implements OnInit {
       .subscribe((plantations) => {
         for (let plantation of plantations) {
           if (this.listPlantationsRef.includes(plantation.key)) {
-            console.log('already exists');
             this.listPlantations[
               this.listPlantationsRef.indexOf(plantation.key)
             ] = JSON.parse(JSON.stringify(plantation));
