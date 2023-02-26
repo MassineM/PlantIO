@@ -4,6 +4,10 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    height: '100%',
+    alignItems: 'center',
+    marginTop: 80,
+    justifyContent: 'center',
   },
   title: {},
   logo: {

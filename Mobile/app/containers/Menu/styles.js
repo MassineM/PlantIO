@@ -7,4 +7,11 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  menuContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+    marginBottom: 10,
+  },
 });

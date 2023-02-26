@@ -25,6 +25,7 @@ import { PcardComponent } from './components/pcard/pcard.component';
 import { PmenuComponent } from './components/pmenu/pmenu.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PinfoComponent } from './components/pinfo/pinfo.component';
+import { PcircleComponent } from './components/pcircle/pcircle.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { PinfoComponent } from './components/pinfo/pinfo.component';
     PmenuComponent,
     NavBarComponent,
     PinfoComponent,
+    PcircleComponent,
   ],
   imports: [
     BrowserModule,

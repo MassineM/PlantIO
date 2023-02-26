@@ -95,7 +95,6 @@ export class PlantationsComponent implements OnInit {
               this.listLums.push(sumLum / cnt);
               this.listSpotSizes.push(cnt);
             }
-            console.log(this.listHumds, 'listHumds');
           }
         }
       });

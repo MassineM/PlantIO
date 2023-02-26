@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import styles from './styles';
+import styles from '../Login/styles';
 import auth from '@react-native-firebase/auth';
 
 export default function RegistrationScreen({navigation}) {
@@ -38,60 +38,63 @@ export default function RegistrationScreen({navigation}) {
       <KeyboardAwareScrollView
         style={{flex: 1, width: '100%'}}
         keyboardShouldPersistTaps="always">
-        {/* <Image
-                    style={styles.logo}
-                    source={require('../../../assets/icon.png')}
-                /> */}
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          placeholderTextColor=""
-          onChangeText={text => setFullName(text)}
-          value={fullName}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
+        <Image
+          style={styles.logo}
+          resizeMode="contain"
+          source={require('../../assets/Logo.png')}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="exemple@gmail.com"
-          onChangeText={text => setEmail(text)}
-          value={email}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="**************"
-          secureTextEntry
-          placeholder="Password"
-          onChangeText={text => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="**************"
-          secureTextEntry
-          placeholder="Confirm Password"
-          onChangeText={text => setConfirmPassword(text)}
-          value={confirmPassword}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => onRegisterPress()}>
-          <Text style={styles.buttonTitle}>Create account</Text>
-        </TouchableOpacity>
-        <View style={styles.footerView}>
-          <Text style={styles.footerText}>
-            Already got an account?{' '}
-            <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-              Log in
+        <View style={styles.form}>
+          <TextInput
+            style={styles.input}
+            placeholder="Full Name"
+            placeholderTextColor=""
+            onChangeText={text => setFullName(text)}
+            value={fullName}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            placeholderTextColor="exemple@gmail.com"
+            onChangeText={text => setEmail(text)}
+            value={email}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="**************"
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={text => setPassword(text)}
+            value={password}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="**************"
+            secureTextEntry
+            placeholder="Confirm Password"
+            onChangeText={text => setConfirmPassword(text)}
+            value={confirmPassword}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => onRegisterPress()}>
+            <Text style={styles.buttonTitle}>Submit</Text>
+          </TouchableOpacity>
+          <View style={styles.footerView}>
+            <Text style={styles.footerText}>
+              Already got an account?{' '}
+              <Text onPress={onFooterLinkPress} style={styles.footerLink}>
+                Log in
+              </Text>
             </Text>
-          </Text>
+          </View>
         </View>
       </KeyboardAwareScrollView>
     </View>

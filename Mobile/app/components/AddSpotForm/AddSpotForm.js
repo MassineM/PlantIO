@@ -1,29 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {firebase} from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import {
-  Image,
-  Text,
-  TextInput,
-  ImageBackground,
-  Dimensions,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from '../Login/styles';
-import addStyles from './styles';
 
-export default function AddForm({navigation}) {
-  const screenHeight = Dimensions.get('window').height;
-  const screenWidth = Dimensions.get('window').width;
-
+export default function AddSpotForm({route, navigation}) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [recommandTemp, setRecommandTemp] = useState('');
-  const [recommandHumd, setRecommandHumd] = useState('');
-  const [recommandLum, setRecommandLum] = useState('');
-
+  const [materielName, setMaterielName] = useState('');
+  const [ref, setRef] = useState('');
   function randomRef() {
     var characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -35,26 +21,26 @@ export default function AddForm({navigation}) {
     }
     return randomRef;
   }
-  const addPlantation = () => {
+  const addSpot = async () => {
     const user = auth().currentUser;
-    const plantRef = randomRef();
-    const ref = firebase
+    const spotRef = randomRef();
+    const db = firebase
       .app()
       .database(
         'https://plantio24-default-rtdb.europe-west1.firebasedatabase.app/',
       )
-      .ref(`plantations/${user.uid}/${plantRef}`);
-    ref
-      .set({
-        plantRef: plantRef,
-        name: name,
-        description: description,
-        recommandTemp: recommandTemp,
-        recommandHumd: recommandHumd,
-        recommandLum: recommandLum,
-      })
+      .ref(`plantations/${user.uid}/${route.params.plantId}/spots/${spotRef}`);
+    db.set({
+      description: description,
+      name: name,
+      materialName: materielName,
+      materialRef: ref,
+      realtimeTemp: 0,
+      realtimeHumd: 0,
+      realtimeLum: 0,
+    })
       .then(() => {
-        navigation.navigate('Dashboard');
+        navigation.goBack();
       })
       .catch(error => {
         alert(error);
@@ -62,10 +48,11 @@ export default function AddForm({navigation}) {
   };
 
   return (
-    <View style={addStyles.container}>
+    <View style={styles.container}>
       <KeyboardAwareScrollView
         style={{flex: 1, width: '100%'}}
         keyboardShouldPersistTaps="always">
+        {/* <Image style={styles.logo} source={assets.ailata - logo} /> */}
         <View style={styles.form}>
           <TextInput
             style={styles.input}
@@ -79,7 +66,7 @@ export default function AddForm({navigation}) {
           <TextInput
             style={styles.input}
             placeholderTextColor="#aaaaaa"
-            placeholder="Description"
+            placeholder="Déscription"
             onChangeText={text => setDescription(text)}
             value={description}
             underlineColorAndroid="transparent"
@@ -88,34 +75,23 @@ export default function AddForm({navigation}) {
           <TextInput
             style={styles.input}
             placeholderTextColor="#aaaaaa"
-            placeholder="Niveau de température recommandé"
-            onChangeText={text => setRecommandTemp(text)}
-            value={recommandTemp}
+            placeholder="Le nom du matériel"
+            onChangeText={text => setMaterielName(text)}
+            value={materielName}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
           <TextInput
             style={styles.input}
             placeholderTextColor="#aaaaaa"
-            placeholder="Taux d'humidité recommandé"
-            onChangeText={text => setRecommandHumd(text)}
-            value={recommandHumd}
+            placeholder="Référence du matériel"
+            onChangeText={text => setRef(text)}
+            value={ref}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
           />
-          <TextInput
-            style={styles.input}
-            placeholderTextColor="#aaaaaa"
-            placeholder="Niveau de luminosité recommandé"
-            onChangeText={text => setRecommandLum(text)}
-            value={recommandLum}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => addPlantation()}>
-            <Text style={styles.buttonTitle}>Submit</Text>
+          <TouchableOpacity style={styles.button} onPress={() => addSpot()}>
+            <Text style={styles.buttonTitle}>Ajouter</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>

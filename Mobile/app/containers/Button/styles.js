@@ -1,19 +1,58 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  button: {
-    backgroundColor: '#788eec',
-    marginLeft: 30,
-    marginRight: 30,
+  MenuButtonTop: {
+    backgroundColor: '#9EA1B2',
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '25%',
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderColor: '#4B5B4B',
+    borderWidth: 1,
+  },
+  MenuButtonMid: {
+    backgroundColor: '#9EA1B2',
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '25%',
+    borderColor: '#4B5B4B',
+    borderWidth: 1,
+  },
+  MenuButtonBot: {
+    backgroundColor: '#9EA1B2',
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '25%',
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+    borderColor: '#4B5B4B',
+    borderWidth: 1,
+  },
+  buttonTitle: {
+    color: 'white',
+    fontSize: 15,
+    margin: 5,
+  },
+  buttonAdd: {
+    backgroundColor: '#95B671',
     marginTop: 20,
     height: 48,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '46%',
   },
-  buttonTitle: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+  buttonLogout: {
+    backgroundColor: '#FF7056',
+    marginTop: 20,
+    borderRadius: 50,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 48,
   },
 });

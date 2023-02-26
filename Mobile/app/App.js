@@ -1,4 +1,11 @@
 import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  View,
+  ImageBackground,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -9,7 +16,7 @@ import Dashboard from './components/Dashboard/dashboard';
 import Plantation from './components/Plantation/plantation';
 import Spot from './components/Spot/spot';
 import AddPlantationForm from './components/AddPlantationForm/AddPlantationForm';
-//import AddSpotFrom from './components/AddSpotFrom/AddSpotFrom';
+import AddSpotFrom from './components/AddSpotForm/AddSpotForm';
 
 import auth from '@react-native-firebase/auth';
 
@@ -64,42 +71,61 @@ function RootStack() {
   return (
     <Stack.Navigator
       initialRouteName="Login"
-      screenOptions={{
+      screenOptions={({navigation}) => ({
         headerTitleAlign: 'center',
         headerStyle: {
-          backgroundColor: '#3740FE',
+          backgroundColor: '#00000000',
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#345F06',
         headerTitleStyle: {
           fontWeight: 'bold',
         },
-      }}>
+        headerBackground: () => (
+          <Image
+            style={{
+              resizeMode: 'stretch',
+              width: '100%',
+              height: '100%',
+              opacity: 0.4,
+            }}
+            source={require('./assets/background-1.png')}
+          />
+        ),
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}>
+            <Image
+              source={require('./assets/NavLogo.png')}
+              style={{
+                resizeMode: 'center',
+                width: 40,
+                height: 30,
+                marginRight: 10,
+              }}
+            />
+          </TouchableOpacity>
+        ),
+      })}>
       <Stack.Screen
         name="SignUp"
         component={SignUp}
-        options={{headerLeft: null}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{headerLeft: null}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="Dashboard"
         component={Dashboard}
-        options={{headerLeft: null}}
+        options={{headerTitleAlign: 'center', headerLeft: () => <View></View>}}
       />
-      <Stack.Screen
-        name="Plantation"
-        component={Plantation}
-        options={{headerLeft: null}}
-      />
-      <Stack.Screen
-        name="Add New Plantation"
-        component={AddPlantationForm}
-        options={{headerLeft: null}}
-      />
-      <Stack.Screen name="Spot" component={Spot} options={{headerLeft: null}} />
+      <Stack.Screen name="Plantation" component={Plantation} />
+      <Stack.Screen name="Add New Plantation" component={AddPlantationForm} />
+      <Stack.Screen name="Add New Spot" component={AddSpotFrom} />
+      <Stack.Screen name="Spot" component={Spot} />
     </Stack.Navigator>
   );
 }

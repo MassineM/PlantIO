@@ -1,35 +1,54 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import style from './styles';
+import styles from './styles';
+import Button from '../Button/button';
 
-export default function Menu() {
+export default function Menu(props) {
+  // const [items, setItems] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const output = [];
+
+  // useEffect(() => {
+  //   setItems(props.items);
+  //   if (items.length == 3) {
+  //     setLoading(true);
+  //     console.log(items, 'items');
+  //     console.log(loading, 'Loading');
+  //     for (let index = 0; index < props.items.length; index++) {
+  //       const element = props.items[index];
+  //       let tempItem = <Text>{element.title}</Text>;
+  //       output.push(tempItem);
+  //     }
+  //   }
+  //   console.log(output, 'output');
+  // }, [items]);
+
   return (
-    <View style={style.container}>
-      <FlatList
-        data={[
-          {key: 'Devin'},
-          {key: 'Dan'},
-          {key: 'Dominic'},
-          {key: 'Jackson'},
-          {key: 'James'},
-          {key: 'Joel'},
-          {key: 'John'},
-          {key: 'Jillian'},
-          {key: 'Jimmy'},
-          {key: 'Julie'},
-        ]}
-        renderItem={({item}) => <Text style={style.title}>{item.key}</Text>}
+    <View style={styles.menuContainer}>
+      <Button
+        text={'Overview'}
+        mode={'MenuButton-top'}
+        do={() => {
+          props.setMode(0);
+        }}
       />
-      <Text> Hello hello</Text>
-      {/* <FlatList
-        data={['Overview', 'Spots', 'Details']}
-        renderItem={({item}) => <Text style={style.text}>{item}</Text>}
-      /> */}
-      {/* {props.text.map(text => (
-        <View style={style.container}>
-          <Text>{text}</Text>
-        </View>
-      ))} */}
+      <Button
+        text={props.mode == true ? 'History' : 'Spots'}
+        mode={'MenuButton-mid'}
+        do={() => {
+          props.setMode(1);
+        }}
+      />
+      <Button
+        text={'Details'}
+        mode={'MenuButton-bot'}
+        do={() => {
+          props.setMode(2);
+        }}
+      />
+      {/* <Text>Menu</Text>
+      <View>{loading ? output : <Text>Loading ...</Text>}</View>
+      {output} */}
     </View>
   );
 }

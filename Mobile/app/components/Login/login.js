@@ -28,36 +28,44 @@ export default function Login({navigation}) {
       <KeyboardAwareScrollView
         style={{flex: 1, width: '100%'}}
         keyboardShouldPersistTaps="always">
-        {/* <Image style={styles.logo} source={assets.ailata - logo} /> */}
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={text => setEmail(text)}
-          value={email}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
+        <Image
+          resizeMode="contain"
+          style={styles.logo}
+          source={require('../../assets/Logo.png')}
         />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Password"
-          onChangeText={text => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TouchableOpacity style={styles.button} onPress={() => onLoginPress()}>
-          <Text style={styles.buttonTitle}>Log in</Text>
-        </TouchableOpacity>
-        <View style={styles.footerView}>
-          <Text style={styles.footerText}>
-            Don't have an account?{' '}
-            <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-              Sign up
+        <View style={styles.form}>
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={text => setEmail(text)}
+            value={email}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={text => setPassword(text)}
+            value={password}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => onLoginPress()}>
+            <Text style={styles.buttonTitle}>Log in</Text>
+          </TouchableOpacity>
+          <View style={styles.footerView}>
+            <Text style={styles.footerText}>
+              Don't have an account?{' '}
+              <Text onPress={onFooterLinkPress} style={styles.footerLink}>
+                Sign up
+              </Text>
             </Text>
-          </Text>
+          </View>
         </View>
       </KeyboardAwareScrollView>
     </View>
